@@ -1,9 +1,9 @@
-package.json @lokalise/dx-guild
-package-lock.json @lokalise/dx-guild
-/.github @lokalise/dx-guild
-Dockerfile @lokalise/dx-guild
-docker-compose.yml @lokalise/dx-guild
+package.json @dariacm
+package-lock.json @dariacm
+/.github @dariacm
+Dockerfile @dariacm
+docker-compose.yml @dariacm
 
-/src @kibertoad @drdaemos @lokalise/dx-guild
-/test @kibertoad @drdaemos @lokalise/dx-guild
-/docs @kibertoad @drdaemos @lokalise/dx-guild
+/src @dariacm
+/test @dariacm
+/docs @dariacm
