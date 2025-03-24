@@ -65,7 +65,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-  assign-_reviewers:
+  assign_reviewers:
     needs: build
     if: needs.build.result == 'failure' && github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
