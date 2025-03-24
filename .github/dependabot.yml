@@ -1,0 +1,43 @@
+version: 2
+updates:
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'monthly'
+    open-pull-requests-limit: 10
+
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+    open-pull-requests-limit: 10
+    groups:
+      types:
+        patterns:
+          - '@types/*'
+      vitest:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
+      typescript:
+        patterns:
+          - 'tsx'
+          - 'typescript'
+      fastify:
+        patterns:
+          - '@fastify/*'
+          - 'fastify'
+          - 'fastify-*'
+      message-queue-toolkit:
+        patterns:
+          - '@message-queue-toolkit/*'
+      drizzle:
+        patterns:
+          - 'drizzle-*'
+      awilix:
+        patterns:
+          - 'awilix'
+          - 'awilix-*'
+      aws:
+        patterns:
+          - '@aws-sdk/*'
