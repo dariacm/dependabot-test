@@ -65,12 +65,12 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-    assign_reviewers:
-      needs: build
-      if: needs.build.result == 'failure' && github.actor == 'dependabot[bot]'
-      runs-on: ubuntu-latest
-      steps:
-        - uses: hkusu/review-assign-action@v1
-          with:
-            ready-comment: 'dependabot was not able to automerge this pull request. Humans, please help 🤖'
-            reviewers: dariacm
+  assign-_reviewers:
+    needs: build
+    if: needs.build.result == 'failure' && github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hkusu/review-assign-action@v1
+        with:
+          ready-comment: 'dependabot was not able to automerge this pull request. Humans, please help 🤖'
+          reviewers: dariacm

@@ -1,5 +1,3 @@
-package.json @dariacm
-package-lock.json @dariacm
 /.github @dariacm
 Dockerfile @dariacm
 docker-compose.yml @dariacm
