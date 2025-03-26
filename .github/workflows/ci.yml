@@ -12,16 +12,11 @@ jobs:
         node-version: [22.x, 23.x]
 
     steps:
-      - name: Check for labels
-        id: label-check
-        uses: actions/github-script@v6
+      - name: Check on of required labels are set
+        uses: docker://agilepathway/pull-request-label-checker:v1.1.2
         with:
-          script: |
-            const label = 'testing';
-            const labels = context.payload.pull_request.labels;
-            if (!labels.some(l => l.name === label)) {
-              core.setFailed(`The PR does not have the required label: ${label}`);
-            }
+          one_of: testing,hi # Must have exactly-one of these labels
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/checkout@v4
 
