@@ -1,7 +1,7 @@
 # node-service-template
 
 ## Overview
-
+Hello world
 `node-service-template` provides a "battery-included" starter template for building enterprise Node.js webservices.
 
 It comes with the following out-of-the-box:
