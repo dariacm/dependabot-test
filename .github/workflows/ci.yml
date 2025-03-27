@@ -12,6 +12,10 @@ jobs:
         node-version: [22.x, 23.x]
 
     steps:
+      - name: Log CI context
+        run: |
+          echo "Actor: ${{ github.actor }}"
+          echo "Build Result: ${{ needs.build.result }}"
       - name: Check on of required labels are set
         uses: docker://agilepathway/pull-request-label-checker:v1.1.2
         with:
@@ -73,8 +77,6 @@ jobs:
 
   assign_reviewers:
     needs: build
-    echo "Actor: ${{ github.actor }}"
-    echo "Build Result: ${{ needs.build.result }}"
     if: needs.build.result == 'failure' && github.actor == 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
