@@ -75,10 +75,13 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
   assign_reviewers:
-    if: failure()
+    if: ${{ always() && needs.build.result == 'failure' }}
     runs-on: ubuntu-latest
     steps:
       - uses: hkusu/review-assign-action@v1
         with:
           ready-comment: 'dependabot was not able to automerge this pull request. Humans, please help 🤖'
           reviewers: dariacm
+      - name: Show result
+        if: always()
+        run: echo '${{ steps.assign.outputs.result }}'
