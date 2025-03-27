@@ -62,9 +62,19 @@ jobs:
         run: |
           node --run spec:generate
 
+  log_stuff:
+    needs: build
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log build result
+        run: echo '${{ needs.build.result }}'
+      - name: Log actor
+        run: echo '${{ github.actor }}'
+
   automerge:
     needs: build
-    if: ${{ needs.build.result == 'success' && github.actor == 'dependabot[bot]' }}
+    if: ${{ always() && github.actor == 'dependabot[bot]' && needs.build.result == 'success' }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -74,17 +84,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-  another_step:
-    needs: build
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Log stuff
-        run: echo '${{ needs.build.result }}'
-
   assign_reviewers:
     needs: build
-    if: ${{ always() && needs.build.result == 'failure' }}
+    if: ${{ always() && github.actor == 'dependabot[bot]' && needs.build.result == 'failure' }}
     runs-on: ubuntu-latest
     steps:
       - id: review
