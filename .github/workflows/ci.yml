@@ -74,14 +74,23 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-  assign_reviewers:
+  another_step:
+    needs: build
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
-      - uses: hkusu/review-assign-action@v1
+      - name: Log stuff
+        run: echo '${{ needs.build.result }}'
+
+  assign_reviewers:
+    needs: build
+    if: ${{ always() && needs.build.result == 'failure' }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: review
+        uses: hkusu/review-assign-action@v1
         with:
           ready-comment: 'dependabot was not able to automerge this pull request. Humans, please help 🤖'
           reviewers: dariacm
       - name: Show result
-        if: always()
-        run: echo '${{ steps.assign.outputs.result }}'
+        run: echo '${{ steps.review.outputs.result }}'
