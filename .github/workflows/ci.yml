@@ -6,17 +6,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    continue-on-error: true
 
     strategy:
       matrix:
         node-version: [22.x, 23.x]
 
     steps:
-      - name: Log CI context
+      - name: Log CI context 1
         run: |
           echo "Actor: ${{ github.actor }}"
-          echo "Build Result: ${{ needs.build.result }}"
       - name: Check on of required labels are set
         uses: docker://agilepathway/pull-request-label-checker:v1.1.2
         with:
@@ -66,7 +64,7 @@ jobs:
 
   automerge:
     needs: build
-    if: needs.build.result == 'success' && github.actor == 'dependabot[bot]'
+    if: ${{ needs.build.result == 'success' && github.actor == 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -76,9 +74,17 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+  extra_log:
+    runs-on: ubuntu_latest
+    steps:
+      - name: Log CI context
+        run: |
+         echo "Actor: ${{ github.actor }}"
+         echo "Build Result: ${{ needs.build.result }}"
+
   assign_reviewers:
     needs: build
-    if: needs.build.result == 'failure' && github.actor == 'dependabot[bot]'
+    if: ${{ needs.build.result == 'failure' && github.actor == 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - uses: hkusu/review-assign-action@v1
