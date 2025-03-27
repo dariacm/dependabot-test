@@ -75,7 +75,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
   assign_reviewers:
-    if: ${{ always() && needs.build.result == 'failure' }}
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - uses: hkusu/review-assign-action@v1
