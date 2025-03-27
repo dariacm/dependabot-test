@@ -75,7 +75,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
   assign_reviewers:
-    if: ${{ failure() && github.actor == 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - uses: hkusu/review-assign-action@v1
