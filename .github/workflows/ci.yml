@@ -94,5 +94,6 @@ jobs:
         with:
           ready-comment: 'dependabot was not able to automerge this pull request. Humans, please help 🤖'
           reviewers: dariacm
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Show result
         run: echo '${{ steps.review.outputs.result }}'
