@@ -97,7 +97,7 @@ jobs:
             const repo = context.repo.repo;
             const pull_number = context.payload.pull_request.number;
             
-            await github.rest.pulls.addReviewers({
+            await github.rest.pulls.requestReviewers({
               owner,
               repo,
               pull_number,
