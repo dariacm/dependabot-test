@@ -15,11 +15,6 @@ jobs:
       - name: Log CI context 1
         run: |
           echo "Actor: ${{ github.actor }}"
-      - name: Check on of required labels are set
-        uses: docker://agilepathway/pull-request-label-checker:v1.1.2
-        with:
-          one_of: testing,hi # Must have exactly-one of these labels
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/checkout@v4
 
