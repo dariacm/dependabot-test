@@ -1,0 +1,40 @@
+name: Add Reviewers
+
+on:
+  workflow_call:
+    inputs:
+      build_result:
+        required: true
+        type: string
+      actor:
+        required: true
+        type: string
+
+jobs:
+  add_reviewers:
+    if: ${{ always() && inputs.actor == 'dependabot[bot]' && inputs.build_result == 'failure' }}
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Add Reviewers
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const pull_number = context.payload.pull_request.number;
+            
+            await github.rest.pulls.requestReviewers({
+              owner,
+              repo,
+              pull_number,
+              reviewers: ['dariacm'],
+            });
+            
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number: pull_number,
+              body: 'dependabot was not able to automerge this pull request. Humans, please help 🤖',
+            });
