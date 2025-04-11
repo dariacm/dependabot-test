@@ -12,9 +12,11 @@ jobs:
         node-version: [22.x, 23.x]
 
     steps:
-      - name: Log CI context 1
-        run: |
-          echo "Actor: ${{ github.actor }}"
+      - name: Check on of required labels are set
+        uses: docker://agilepathway/pull-request-label-checker:v1.1.2
+        with:
+          one_of: testing,hi # Must have exactly-one of these labels
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/checkout@v4
 
@@ -56,16 +58,6 @@ jobs:
       - name: Generate and validate OpenAPI schema
         run: |
           node --run spec:generate
-
-  log_stuff:
-    needs: build
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Log build result
-        run: echo '${{ needs.build.result }}'
-      - name: Log actor
-        run: echo '${{ github.actor }}'
 
   automerge:
     needs: build
