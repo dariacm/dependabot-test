@@ -74,6 +74,8 @@ jobs:
   add_reviewers:
     needs: build
     uses: ./.github/workflows/add-reviewers.yml
+    permissions:
+      pull-requests: write
     with:
       build_result: ${{ needs.build.result }}
       actor: ${{ github.actor }}
