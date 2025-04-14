@@ -12,7 +12,7 @@ It comes with the following out-of-the-box:
 - [Global error handler](./src/infrastructure/errors/errorHandler.ts);
 - JSON-based, single line standardized [logging](./src/infrastructure/logger.ts);
 - Automatic population of `req.id` for incoming requests based on `x-request-id` header, or generation of new UUID if none is set, for the purposes of distributed tracing.
-
+dd
 Mechanisms:
 
 - Type-safe [config management](./src/infrastructure/config.ts);
