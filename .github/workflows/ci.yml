@@ -71,8 +71,9 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-  add_reviewers:
+  add_reviewers_reusable_workflow:
     needs: build
+    if: ${{ always() }}
     uses: ./.github/workflows/add-reviewers.yml
     permissions:
       pull-requests: write
