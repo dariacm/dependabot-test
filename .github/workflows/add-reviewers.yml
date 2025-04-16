@@ -20,7 +20,7 @@ jobs:
       - name: Read reviewers from DEPENDABOTREVIEWERS
         id: read-reviewers
         run: |
-          reviewers=$(grep -v '^#' DEPENDABOTREVIEWERS | tr '\n' ',' | sed 's/,$//')
+          reviewers=$(grep -v '^#' .github/DEPENDABOTREVIEWERS | tr '\n' ',' | sed 's/,$//')
           echo "reviewers=$reviewers" >> $GITHUB_ENV
       - name: Add Reviewers
         uses: actions/github-script@v7
