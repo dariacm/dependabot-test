@@ -20,21 +20,31 @@ jobs:
       - name: Read reviewers from DEPENDABOTREVIEWERS
         id: read-reviewers
         run: |
-          reviewers=$(grep -v '^#' .github/DEPENDABOTREVIEWERS | tr '\n' ',' | sed 's/,$//')
+          owners="["
+          while IFS= read -r name
+          do
+            reviewers="$reviewers'$name', "
+          done < DEPENDABOTREVIEWERS
+          reviewers="${reviewers%, }]"
           echo "reviewers=$reviewers" >> $GITHUB_ENV
-      - name: Add Reviewers
+      - name: Print out reviewers
+        run: |
+          echo "Reviewers: ${{ env.reviewers }}"
+      - name: Add reviewers and comment
         uses: actions/github-script@v7
         with:
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const pull_number = context.payload.pull_request.number;
+            const reviewersString = process.env.reviewers;
+            const reviewers = JSON.parse(reviewersString.replace(/'/g, '"'))
             
             await github.rest.pulls.requestReviewers({
               owner,
               repo,
               pull_number,
-              reviewers: process.env.reviewers.split(','),
+              reviewers,
             });
             
             await github.rest.issues.createComment({
