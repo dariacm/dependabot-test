@@ -50,7 +50,7 @@
         "@lokalise/fastify-api-contracts": "^1.4.4",
         "@lokalise/fastify-extras": "^27.1.0",
         "@lokalise/healthcheck-utils": "^2.0.0",
-        "@lokalise/id-utils": "^3.0.0",
+        "@lokalise/id-utils": "^3.0.1",
         "@lokalise/node-core": "^13.5.0",
         "@lokalise/universal-ts-utils": "^4.2.3",
         "@lokalise/zod-extras": "^2.1.0",
