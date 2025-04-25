@@ -12,6 +12,7 @@ on:
 
 jobs:
   add_reviewers:
+    if: ${{ inputs.actor == 'dependabot[bot]' && inputs.build_result == 'failure' }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
