@@ -21,12 +21,18 @@ jobs:
       - name: Read reviewers from DEPENDABOTREVIEWERS
         id: read-reviewers
         run: |
-          owners="["
+          reviewers="["
+          first=true
           while IFS= read -r name
           do
-            reviewers="$reviewers'$name', "
+            if [ "$first" = true ]; then
+              reviewers="$reviewers\"$name\""
+              first=false
+            else
+              reviewers="$reviewers,\"$name\""
+            fi
           done < DEPENDABOTREVIEWERS
-          reviewers="${reviewers%, }]"
+          reviewers="$reviewers]"
           echo "reviewers=$reviewers" >> $GITHUB_ENV
       - name: Print out reviewers
         run: |
@@ -39,7 +45,7 @@ jobs:
             const repo = context.repo.repo;
             const pull_number = context.payload.pull_request.number;
             const reviewersString = process.env.reviewers;
-            const reviewers = JSON.parse(reviewersString.replace(/'/g, '"'))
+            const reviewers = const reviewers = JSON.parse(reviewersString);
             
             await github.rest.pulls.requestReviewers({
               owner,
