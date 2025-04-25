@@ -44,7 +44,7 @@ jobs:
             const repo = context.repo.repo;
             const pull_number = context.payload.pull_request.number;
             const reviewersString = process.env.reviewers;
-            const reviewers = const reviewers = JSON.parse(reviewersString);
+            const reviewers = JSON.parse(reviewersString);
             
             await github.rest.pulls.requestReviewers({
               owner,
