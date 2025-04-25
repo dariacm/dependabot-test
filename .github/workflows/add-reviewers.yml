@@ -37,7 +37,7 @@ jobs:
               owner,
               repo,
               pull_number,
-              reviewers: process.env.REVIEWERS.split(','),
+              reviewers: env.reviewers.split(','),
             });
             
             await github.rest.issues.createComment({
