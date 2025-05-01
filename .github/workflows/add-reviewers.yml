@@ -18,14 +18,17 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - name: Read reviewers from DEPENDABOTREVIEWERS
+      - name: Read reviewers and teams from DEPENDABOTREVIEWERS.json
         id: read-reviewers
         run: |
-          reviewers=$(grep -v '^#' DEPENDABOTREVIEWERS | tr '\n' ',' | sed 's/,$//')
-          echo "reviewers=$reviewers" >> $GITHUB_ENV
-      - name: Print out reviewers
+          teams=$(jq -r '.teams | join(",")' DEPENDABOTREVIEWERS.json)
+          users=$(jq -r '.users | join(",")' DEPENDABOTREVIEWERS.json)
+          echo "teams=$teams" >> $GITHUB_ENV
+          echo "users=$users" >> $GITHUB_ENV
+      - name: Print out reviewers and teams
         run: |
-          echo "Reviewers: ${{ env.reviewers }}"
+          echo "Team Reviewers: ${{ env.teams }}"
+          echo "User Reviewers: ${{ env.users }}"
       - name: Add reviewers and comment
         uses: actions/github-script@v7
         with:
@@ -38,7 +41,8 @@ jobs:
               owner,
               repo,
               pull_number,
-              reviewers: '${{ env.reviewers }}'.split(','),
+              reviewers: '${{ env.users }}'.split(','),
+              team_reviewers: '${{ env.teams }}'.split(','),
             });
             
             await github.rest.issues.createComment({
