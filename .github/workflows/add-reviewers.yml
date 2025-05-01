@@ -37,13 +37,29 @@ jobs:
             const repo = context.repo.repo;
             const pull_number = context.payload.pull_request.number;
 
-            await github.rest.pulls.requestReviewers({
+            const reviewers = '${{ env.users }}'.split(',').filter(user => user);
+            const team_reviewers = '${{ env.teams }}'.split(',').filter(team => team);
+      
+            const requestPayload = {
               owner,
               repo,
               pull_number,
-              reviewers: '${{ env.users }}'.split(','),
-              team_reviewers: '${{ env.teams }}'.split(','),
-            });
+            };
+            
+            if (team_reviewers.length === 0 && reviewers.length === 0) {
+              console.log('No reviewers or team reviewers found. Skipping reviewer assignment.');
+              process.exit(0);
+            }
+              
+              if (team_reviewers.length > 0) {
+              requestPayload.team_reviewers = team_reviewers;
+            }
+              
+              if (reviewers.length > 0) {
+              requestPayload.reviewers = reviewers;
+            }
+      
+            await github.rest.pulls.requestReviewers(requestPayload);
             
             await github.rest.issues.createComment({
               owner,
