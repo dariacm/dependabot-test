@@ -8,7 +8,7 @@ on:
 
 jobs:
   add_reviewers:
-    if: ${{ github.actor == 'dariacm' && inputs.build_result == 'failure' }}
+    if: ${{ inputs.build_result == 'failure' }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
