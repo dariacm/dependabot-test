@@ -62,7 +62,7 @@ jobs:
             };
             
             if (team_reviewers.length === 0 && reviewers.length === 0) {
-              console.log('No reviewers or team reviewers found. Skipping reviewer assignment.');
+              console.log('No reviewers or team reviewers found. Skipping.');
               process.exit(0);
             }
               
@@ -94,11 +94,6 @@ jobs:
                 issue_number: pull_number,
                 body: 'dependabot was not able to automerge this pull request. Humans, please help 🤖',
               });
+            } else {
+                console.log('Comment already posted for this PR. Skipping.');
             }
-            
-            await github.rest.issues.createComment({
-              owner,
-              repo,
-              issue_number: pull_number,
-              body: 'dependabot was not able to automerge this pull request. Humans, please help 🤖',
-            });
