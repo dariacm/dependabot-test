@@ -38,8 +38,19 @@ jobs:
               repo,
               run_id: context.payload.workflow_run.id
             });
-            console.log(run);
             const pull_number = run.pull_requests[0].number;
+            
+            // Check if review has already been requested
+            const { data: pr } = await github.rest.pulls.get({
+              owner,
+              repo,
+              pull_number
+            });
+            
+            if (pr.requested_reviewers.length > 0 || pr.requested_teams.length > 0) {
+              console.log('Reviews already requested for this PR. Skipping.');
+              process.exit(0);
+            }
 
             const reviewers = '${{ env.users }}'.split(',').filter(user => user);
             const team_reviewers = '${{ env.teams }}'.split(',').filter(team => team);
@@ -64,6 +75,26 @@ jobs:
             }
       
             await github.rest.pulls.requestReviewers(requestPayload);
+            
+            // Check if comment already exists
+            const { data: comments } = await github.rest.issues.listComments({
+              owner,
+              repo,
+              issue_number: pull_number
+            });
+            
+            const commentExists = comments.some(comment => 
+              comment.body === 'dependabot was not able to automerge this pull request. Humans, please help 🤖'
+            );
+            
+            if (!commentExists) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: pull_number,
+                body: 'dependabot was not able to automerge this pull request. Humans, please help 🤖',
+              });
+            }
             
             await github.rest.issues.createComment({
               owner,
