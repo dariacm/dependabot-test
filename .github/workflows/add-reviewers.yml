@@ -8,7 +8,7 @@ on:
 
 jobs:
   add_reviewers:
-    if: ${{ inputs.build_result == 'failure' }}
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
