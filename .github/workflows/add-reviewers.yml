@@ -9,7 +9,7 @@ on:
 jobs:
   add_reviewers:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    if: ${{ github.actor == 'dariacm' && github.event.workflow_run.conclusion == 'failure' }}
     permissions:
       pull-requests: write
     steps:
