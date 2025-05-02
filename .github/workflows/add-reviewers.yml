@@ -10,6 +10,8 @@ jobs:
   add_reviewers:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    env:
+      PR_NUMBER: ${{ github.event.pull_request.number }}
     permissions:
       pull-requests: write
     steps:
@@ -33,14 +35,7 @@ jobs:
           script: |
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            
-            const workflowRun = await github.rest.actions.getWorkflowRun({
-              owner,
-              repo,
-              run_id: context.runId,
-            });
-              
-            const pull_number = workflowRun.data.pull_requests?.[0]?.number;
+            const pull_number = process.env.PR_NUMBER;
 
             const reviewers = '${{ env.users }}'.split(',').filter(user => user);
             const team_reviewers = '${{ env.teams }}'.split(',').filter(team => team);
