@@ -1,23 +1,21 @@
 name: Add Reviewers
 
 on:
-  workflow_call:
-    inputs:
-      build_result:
-        required: true
-        type: string
-      actor:
-        required: true
-        type: string
+  workflow_run:
+    workflows: [ 'ci', 'Ensure labels' ]
+    types:
+      - completed
 
 jobs:
   add_reviewers:
-    if: ${{ inputs.actor == 'dependabot[bot]' && inputs.build_result == 'failure' }}
+    if: ${{ github.actor == 'dariacm' && inputs.build_result == 'failure' }}
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Read reviewers and teams from DEPENDABOTREVIEWERS.json
         id: read-reviewers
         run: |

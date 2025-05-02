@@ -12,12 +12,6 @@ jobs:
         node-version: [22.x, 23.x]
 
     steps:
-      - name: Check on of required labels are set
-        uses: docker://agilepathway/pull-request-label-checker:v1.1.2
-        with:
-          one_of: testing,hi # Must have exactly-one of these labels
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-
       - uses: actions/checkout@v4
 
       - name: Setup Node ${{ matrix.node-version }}
@@ -70,13 +64,3 @@ jobs:
       - uses: fastify/github-action-merge-dependabot@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-  add_reviewers_reusable_workflow:
-    needs: build
-    if: ${{ always() }}
-    uses: ./.github/workflows/add-reviewers.yml
-    permissions:
-      pull-requests: write
-    with:
-      build_result: ${{ needs.build.result }}
-      actor: ${{ github.actor }}
