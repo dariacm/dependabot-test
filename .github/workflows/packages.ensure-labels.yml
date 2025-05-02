@@ -12,6 +12,8 @@ on:
       - ready_for_review
       - labeled
       - unlabeled
+    paths:
+      - 'packages/**'
 
 jobs:
   ensure_labels:
