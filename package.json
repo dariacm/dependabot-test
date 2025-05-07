@@ -103,7 +103,7 @@
         "mockttp": "^3.17.0",
         "oas-validator": "^5.0.8",
         "ts-deepmerge": "^7.0.2",
-        "tsx": "^4.19.3",
+        "tsx": "^4.19.4",
         "type-fest": "^4.39.1",
         "typescript": "5.8.3",
         "vitest": "^3.0.7",
