@@ -28,7 +28,7 @@ jobs:
           echo "Team Reviewers: ${{ env.teams }}"
           echo "User Reviewers: ${{ env.users }}"
       - name: Add reviewers and comment
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const owner = context.repo.owner;
