@@ -2,7 +2,7 @@ name: Add Reviewers
 
 on:
   workflow_run:
-    workflows: [ 'ci', 'Ensure labels' ]
+    workflows: [ 'ci' ]
     types:
       - completed
 
