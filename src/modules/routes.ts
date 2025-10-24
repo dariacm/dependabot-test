@@ -23,7 +23,7 @@ export type Routes = Array<
 
 export function getRoutes(): {
   routes: Routes
-}         {
+} {
   const { routes: userRoutes } = getUserRoutes()
 
   return {
