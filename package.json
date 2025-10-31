@@ -92,7 +92,7 @@
         "@biomejs/biome": "1.9.4",
         "@lokalise/biome-config": "^1.6.1",
         "@lokalise/tsconfig": "^3.0.0",
-        "@types/amqplib": "^0.10.6",
+        "@types/amqplib": "^0.10.8",
         "@types/jsonwebtoken": "^9.0.10",
         "@types/newrelic": "^9.14.8",
         "@types/node": "^24.9.2",
