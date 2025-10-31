@@ -100,7 +100,7 @@
         "cpy-cli": "^5.0.0",
         "cross-env": "^10.1.0",
         "drizzle-kit": "^0.30.6",
-        "mockttp": "^4.2.0",
+        "mockttp": "^4.2.1",
         "oas-validator": "^5.0.8",
         "ts-deepmerge": "^7.0.2",
         "tsx": "^4.20.6",
