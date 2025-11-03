@@ -1,7 +1,4 @@
-/.github @dariacm
-Dockerfile @dariacm
-docker-compose.yml @dariacm
+package.json
+package-lock.json
 
-/src @dariacm
-/test @dariacm
-/docs @dariacm
+* @dariacm @kibertoad
