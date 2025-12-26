@@ -19,6 +19,6 @@ jobs:
       - name: Add reviewers on failure
         uses: ./.github/actions/smart-dependabot-notifications
         with:
-          reviewers: 'dariacm,kibertoad'
+          reviewers: 'dariacm'
           team-reviewers: ''
           comment: 'Testing GitHub actions, please ignore me'
