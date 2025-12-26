@@ -1,0 +1,27 @@
+name: 'Smart Dependabot Notifications'
+description: 'Get notified only when dependabot PRs fail checks and cannot be automerged'
+author: 'Daria Carlotta Maino'
+runs:
+  using: 'node24'
+  main: 'index.js'
+inputs:
+  github-token:
+    description: 'GitHub token with pull-requests:write permission. If not provided, uses GITHUB_TOKEN from environment.'
+    required: false
+  reviewers:
+    description: 'Comma-separated list of GitHub usernames to request reviews from'
+    required: false
+  team-reviewers:
+    description: 'Comma-separated list of GitHub team slugs to request reviews from'
+    required: false
+  comment:
+    description: 'Custom comment to post on the PR when checks fail. Defaults to a standard message.'
+    required: false
+outputs:
+  pull-request-number:
+    description: 'The number of the pull request that was processed'
+  reviewers-added:
+    description: 'The total number of reviewers (users + teams) that were added'
+branding:
+  icon: 'bell'
+  color: 'orange'

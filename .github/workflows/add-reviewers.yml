@@ -1,11 +1,5 @@
 name: Add Reviewers
 
-on:
-  workflow_run:
-    workflows: [ 'ci' ]
-    types:
-      - completed
-
 jobs:
   add_reviewers:
     runs-on: ubuntu-latest
