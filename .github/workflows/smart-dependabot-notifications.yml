@@ -2,7 +2,7 @@ name: Smart Dependabot Notifications
 
 on:
   workflow_run:
-    workflows: ['ensure-labels', 'ci']  # This matches the workflow name in ci.yml
+    workflows: ['Ensure labels', 'ci']  # This matches the workflow name in packages.ensure-labels.yml and ci.yml
     types:
       - completed
 
@@ -23,6 +23,7 @@ jobs:
       - name: Add reviewers on failure
         uses: ./.github/actions/smart-dependabot-notifications
         with:
+          github-token: ${{ github.token }}
           reviewers: 'dariacm'
           team-reviewers: ''
           comment: 'Testing GitHub actions, please ignore me'
