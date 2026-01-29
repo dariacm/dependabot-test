@@ -6,7 +6,7 @@ runs:
   main: 'dist/index.js'
 inputs:
   github-token:
-    description: 'GitHub token with pull-requests:write permission. Use ${{ github.token }} to use the automatic token.'
+    description: 'GitHub token with pull-requests:write permission. Use github.token to use the automatic token.'
     required: true
   reviewers:
     description: 'Comma-separated list of GitHub usernames to request reviews from'
