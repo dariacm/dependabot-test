@@ -13,11 +13,8 @@ jobs:
       pull-requests: write
       actions: read
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Add reviewers on failure
-        uses: ./.github/actions/smart-dependabot-notifications
+        uses: dariacm/smart-dependabot-notifications@v1
         with:
           github-token: ${{ github.token }}
           reviewers: 'dariacm'
