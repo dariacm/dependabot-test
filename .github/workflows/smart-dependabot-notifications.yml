@@ -2,7 +2,7 @@ name: Smart Dependabot Notifications
 
 on:
   workflow_run:
-    workflows: ['Ensure labels', 'ci']  # This matches the workflow name in packages.ensure-labels.yml and ci.yml
+    workflows: ['ci']  # This matches the workflow name in packages.ensure-labels.yml and ci.yml
     types:
       - completed
 
